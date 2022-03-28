@@ -1,20 +1,26 @@
 import React, { useState } from 'react'
-import { Button, Col, Form, Row } from 'react-bootstrap'
+import { Alert, Button, Col, Form, Row } from 'react-bootstrap'
+import { fetchMovie } from '../../helpers/axiosHelper';
 import { CustomCard } from '../card/CustomCard'
 
 export const SearchForm = () => {
   const [search, setSearch] = useState("");
-
+  const [movies, setMovies] = useState({});
+  
   const handleOnChange = e =>{
 
     const {value} = e.target;
+    setSearch(value);
     console.log(value)
   }
   
 
-  const handleOnSubmit = e =>{
+  const handleOnSubmit = async e =>{
     e.preventDefault();
-    alert("Got the search value")
+
+    const movie = await fetchMovie(search);
+    setMovies(movie.data);
+    console.log(movie.data)
   }
   
   return (
@@ -32,7 +38,12 @@ export const SearchForm = () => {
     </Form>
     <Row>
         <Col className='d-flex justify-content-center'>
-        <CustomCard/>
+        {movies.Response === "True" && <CustomCard movies={movies}/>}
+        {movies.Response === "False" && (
+          <Alert variant="danger">
+        {movies.Error}
+          </Alert>)
+        }
         </Col>
     </Row>
     

@@ -6,17 +6,16 @@ import { Title } from './components/title/Title';
 
 
 const App =() => {
-  const handleOnSubmit = e =>{
-    e.preventDefault();
-    console.log(e.value);
-  }
+  
+
+  
   
   return (
 
     <div className='wrapper'>
       <Container>
         <Title />
-        <SearchForm handleOnSubmit={handleOnSubmit}/>
+        <SearchForm />
         <hr />
         <MovieList/>
       </Container>
