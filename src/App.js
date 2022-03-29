@@ -11,6 +11,7 @@ const App = () => {
   const [movieList, setMovieList] = useState([]);
   const [movie, setMovie] = useState({});
   const [category, setCategory] = useState("");
+  
 
   const getMovie = async (search) => {
     const movie = await fetchMovie(search);
@@ -38,19 +39,17 @@ const App = () => {
   const handleOnDelete = (imdbID) => {
     const filteredList = movieList.filter((itm) => itm.imdbID !== imdbID);
     setMovieList(filteredList);
-   
   };
 
-  const moviesToDisplay = category 
-  ?movieList.filter(item => item.cat ===category)
-  : movieList;
+  const moviesToDisplay = category
+    ? movieList.filter((item) => item.cat === category)
+    : movieList;
 
   return (
     <div className="wrapper">
       <Container>
         <Title />
         <SearchForm handleOnAddToList={handleOnAddToList} getMovie={getMovie} />
-
         <div className="d-flex justify-content-center">
           {movie.Response === "True" && (
             <CustomCard movie={movie} fun={handleOnAddToList} />
@@ -59,9 +58,7 @@ const App = () => {
             <Alert variant="danger">{movie.Error}</Alert>
           )}
         </div>
-
         <hr />
-
         {category || "All"} selected
         <MovieList
           movieList={moviesToDisplay}
