@@ -10,7 +10,7 @@ import { fetchMovie } from "./helpers/axiosHelper";
 const App = () => {
   const [movieList, setMovieList] = useState([]);
   const [movie, setMovie] = useState({});
-  const [allMovie, setAllMovie] = useState([]);
+  const [category, setCategory] = useState("");
 
   const getMovie = async (search) => {
     const movie = await fetchMovie(search);
@@ -20,13 +20,12 @@ const App = () => {
   const handleOnAddToList = (cat, movie) => {
     const obj = { ...movie, cat };
     //adding first item or initial state
-    !movieList.length && setMovieList([obj]) && setAllMovie([obj]);
+    !movieList.length && setMovieList([obj]);
 
-    const isExist = allMovie.find((item) => item.imdbID === movie.imdbID);
+    const isExist = movieList.find((item) => item.imdbID === movie.imdbID);
 
     if (!isExist) {
       setMovieList([...movieList, obj]);
-      setAllMovie([...allMovie, obj]);
       setMovie({});
     } else {
       alert("Movie already in the list");
@@ -37,31 +36,14 @@ const App = () => {
   };
 
   const handleOnDelete = (imdbID) => {
-    const filteredList = allMovie.filter((itm) => itm.imdbID !== imdbID);
-    setAllMovie(filteredList);
+    const filteredList = movieList.filter((itm) => itm.imdbID !== imdbID);
     setMovieList(filteredList);
    
   };
 
-  // const handleOnDelete = i =>{
-  //   const newArg = movieList.filter((item,index) => index !== i);
-  //   setMovieList(newArg);
-  // }
-
-  const handleOnSelect = (cat) => {
-    let filterArgs = [];
-
-    if (cat) {
-      filterArgs = allMovie.filter((itm) => itm.cat === cat);
-    } else {
-      filterArgs = allMovie;
-    }
-
-    setMovieList(filterArgs);
-    //happy selected
-    //lazy selected
-    //all selected
-  };
+  const moviesToDisplay = category 
+  ?movieList.filter(item => item.cat ===category)
+  : movieList;
 
   return (
     <div className="wrapper">
@@ -79,10 +61,12 @@ const App = () => {
         </div>
 
         <hr />
+
+        {category || "All"} selected
         <MovieList
-          movieList={movieList}
+          movieList={moviesToDisplay}
           handleOnDelete={handleOnDelete}
-          handleOnSelect={handleOnSelect}
+          setCategory={setCategory}
         />
       </Container>
     </div>
