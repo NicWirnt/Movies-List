@@ -37,8 +37,7 @@ const App = () => {
   };
 
   const handleOnDelete = (imdbID) => {
-    const filteredList = allMovie.filter((itm) => itm.imdbID !== imdbID);
-    setAllMovie(filteredList);
+    const filteredList = movieList.filter((itm) => itm.imdbID !== imdbID);
     setMovieList(filteredList);
    
   };
