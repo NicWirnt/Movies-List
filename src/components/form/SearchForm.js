@@ -3,9 +3,8 @@ import { Alert, Button, Col, Form, Row } from "react-bootstrap";
 import { fetchMovie } from "../../helpers/axiosHelper";
 import { CustomCard } from "../card/CustomCard";
 
-export const SearchForm = ({handleOnAddToList, getMovie}) => {
+export const SearchForm = ({ handleOnAddToList, getMovie }) => {
   const [search, setSearch] = useState("");
-  
 
   const handleOnChange = (e) => {
     const { value } = e.target;
@@ -39,7 +38,6 @@ export const SearchForm = ({handleOnAddToList, getMovie}) => {
           </Col>
         </Row>
       </Form>
-      
     </>
   );
 };
