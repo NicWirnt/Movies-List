@@ -49,15 +49,8 @@ const App = () => {
   // }
 
   const handleOnSelect = (cat) => {
-    let filterArgs = [];
+  
 
-    if (cat) {
-      filterArgs = allMovie.filter((itm) => itm.cat === cat);
-    } else {
-      filterArgs = allMovie;
-    }
-
-    setMovieList(filterArgs);
     //happy selected
     //lazy selected
     //all selected
